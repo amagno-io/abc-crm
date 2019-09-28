@@ -55,11 +55,9 @@ namespace Abc.Crm.WindowsClient.Services
 
         #region Consts
 
-        private const string VaultId = "e2bebb8e-9adf-4fda-8897-72a095a942f0";
+        private Guid NoTagDefId = new Guid("ead13e9b-20af-47f0-96b2-89c2704b4467");
 
-        private Guid NoTagDefId = new System.Guid("ead13e9b-20af-47f0-96b2-89c2704b4467");
-
-        private Guid DateTagDefId = new System.Guid("57710b3c-4661-4bea-a81a-7e4c485146ad");
+        private Guid DateTagDefId = new Guid("57710b3c-4661-4bea-a81a-7e4c485146ad");
 
         #endregion
 

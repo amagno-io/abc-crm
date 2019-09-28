@@ -12,7 +12,6 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using Abc.Crm.WindowsClient.Services;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -31,21 +30,22 @@ namespace Abc.Crm.WindowsClient.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            //SimpleIoc.Default.Register<ICustomerDocumentRepository, DemoCustomerDocumentRepository>();
-            SimpleIoc.Default.Register<ICustomerDocumentRepository, CustomerDocumentRepository>();
-            //SimpleIoc.Default.Register<ICustomerDocumentRepository, AmagnoDocumentRepository>();
+            ////if (ViewModelBase.IsInDesignModeStatic)
+            ////{
+            ////    // Create design time view services and models
+            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
+            ////}
+            ////else
+            ////{
+            ////    // Create run time view services and models
+            ////    SimpleIoc.Default.Register<IDataService, DataService>();
+            ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-        
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
