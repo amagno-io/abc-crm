@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Configuration;
+using System.Windows;
 
 namespace Abc.Crm.WindowsClient
 {
@@ -9,6 +10,7 @@ namespace Abc.Crm.WindowsClient
     {
         public MainWindow()
         {
+            MessageBox.Show(ConfigurationManager.AppSettings["amagno_host"], "a" );
             InitializeComponent();
         }
     }
