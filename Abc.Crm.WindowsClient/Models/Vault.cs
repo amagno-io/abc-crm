@@ -4,12 +4,10 @@ using JetBrains.Annotations;
 namespace Abc.Crm.WindowsClient.Models
 {
     [UsedImplicitly]
-    public class DocumentTag
+    public class Vault
     {
         public Guid Id { get; set; }
 
-        public Guid TagDefinitionId { get; set; }
-
-        public string Value { get; set; }
+        public string Name { get; set; }
     }
 }

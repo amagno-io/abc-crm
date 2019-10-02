@@ -1,9 +1,11 @@
 ﻿using System;
+using JetBrains.Annotations;
 using RestSharp.Deserializers;
 
 namespace Abc.Crm.WindowsClient.Models
 {
-    public class CustomerDocument
+    [UsedImplicitly]
+    public class Document
     {
         public Guid Id { get; set; }
 

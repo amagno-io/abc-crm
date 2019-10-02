@@ -12,43 +12,32 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using Abc.Crm.WindowsClient.Factories;
+using Abc.Crm.WindowsClient.Interfaces;
+using Abc.Crm.WindowsClient.Models;
+using Abc.Crm.WindowsClient.Repositories;
+using Abc.Crm.WindowsClient.Services;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace Abc.Crm.WindowsClient.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// </summary>
     public class ViewModelLocator
     {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
+
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+            
+            SimpleIoc.Default.Register<IAuthToken>(() => new AuthToken());
+            SimpleIoc.Default.Register<IAuthenticator, Authenticator>();
+            SimpleIoc.Default.Register<IRestClientFactory, RestClientFactory>();
+            SimpleIoc.Default.Register<IDocumentRepository, DocumentRepository>();
+            SimpleIoc.Default.Register<IVaultRepository, VaultRepository>();
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
-        }
     }
 }

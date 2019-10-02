@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Abc.Crm.WindowsClient
+﻿namespace Abc.Crm.WindowsClient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

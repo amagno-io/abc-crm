@@ -5,79 +5,289 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="508.271" Width="800">
+        Title="{Binding Title}" 
+        Height="427.479" 
+        Width="671.683">
     <Grid>
-        <GroupBox Header="Kunde" Height="163" VerticalAlignment="Top" Margin="10,10,10,0">
-            <Grid Margin="10" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46"></RowDefinition>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Vault">
+            <ComboBox ItemsSource="{Binding Path=VaultList}"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="Id"
+                      SelectedItem="{Binding Path=SelectedVault, Mode=TwoWay}" 
+                      Margin="0,3,0,0" />
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="Customer" VerticalAlignment="Top">
+            <Grid>
+
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="26" />
+                    <RowDefinition Height="26" />
+                    <RowDefinition Height="26" />
+                    <RowDefinition Height="29" />
                 </Grid.RowDefinitions>
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="92*"/>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="168*"/>
-                    <ColumnDefinition Width="44*"/>
+                    <ColumnDefinition Width="58"/>
+                    <ColumnDefinition Width="160*"/>
+                    <ColumnDefinition Width="62"/>
+                    <ColumnDefinition Width="156*"/>
+                    <ColumnDefinition Width="75*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Nummer" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="30" Width="57"/>
-                <Label Content="Adresse" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0"
-                       VerticalAlignment="Top" Height="26" Width="65"/>
-                <Label Content="Stadt" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0"
-                       VerticalAlignment="Top" Height="26" Width="52"/>
-                <Label Content="Land" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="2" Grid.Column="2"
-                       VerticalAlignment="Top" Height="26" Width="52"/>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" HorizontalAlignment="Left" Width="140" Text="{Binding SelectedCustomer.Number}"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="{Binding SelectedCustomer.City   }" VerticalAlignment="Top" Height="16" Width="145"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="{Binding SelectedCustomer.Address}" VerticalAlignment="Top" Height="16" Width="145"/>
-                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="{Binding SelectedCustomer.Country}" VerticalAlignment="Top" Height="16" Width="145"/>
-                <Label Content="Name" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" Height="30" Width="57"/>
-                <Label Content="PLZ" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="65"/>
-                <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="{Binding SelectedCustomer.Name}" VerticalAlignment="Top" Height="16" Width="266"/>
-                <TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap"  Text="{Binding SelectedCustomer.Postcode}" VerticalAlignment="Top" Height="16" Width="266"/>
-                <Image Grid.RowSpan="3" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4" Height="80" Margin="0,20,0,0" VerticalAlignment="Top" Width="80" Source="{Binding SelectedCustomer.Logo}"/>
+
+                <Label 
+                    Content="ID" 
+                    HorizontalAlignment="Left"                     
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                />
+
+                <Label 
+                    Content="Address" 
+                    HorizontalAlignment="Left"                     
+                    Grid.Row="1" 
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                />
+
+                <Label 
+                    Content="City" 
+                    HorizontalAlignment="Left"                     
+                    Grid.Row="2" 
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                />
+
+                <Label 
+                    Content="Country" 
+                    HorizontalAlignment="Left"                     
+                    Grid.Row="2" 
+                    Grid.Column="2"
+                    VerticalAlignment="Top" Margin="3,0,0,0" 
+                />
+
+                <TextBox 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap" 
+                    VerticalAlignment="Top"                     
+                    HorizontalAlignment="Stretch"                     
+                    Text="{Binding SelectedCustomer.Number}"
+                />
+
+                <TextBox 
+                    Grid.Column="1" 
+                    Grid.Row="2" 
+                    HorizontalAlignment="Stretch"
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="{Binding SelectedCustomer.City}" 
+                    VerticalAlignment="Top" 
+                    IsEnabled="False"
+                />
+
+                <TextBox 
+                    Grid.Column="1" 
+                    Grid.Row="1" 
+                    HorizontalAlignment="Stretch"
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="{Binding SelectedCustomer.Address}" 
+                    VerticalAlignment="Top" 
+                    IsEnabled="False"
+                />
+
+                <TextBox 
+                    Grid.Column="3" 
+                    Grid.Row="2" 
+                    HorizontalAlignment="Stretch"
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="{Binding SelectedCustomer.Country}" 
+                    VerticalAlignment="Top" 
+                    IsEnabled="False"
+                />
+
+                <Label 
+                    Content="Name" 
+                    HorizontalAlignment="Left"                     
+                    Grid.Row="0" 
+                    Grid.Column="2" 
+                    VerticalAlignment="Top" Margin="3,0,0,0" 
+                />
+
+                <Label 
+                    Content="Zip Code" 
+                    HorizontalAlignment="Stretch"                    
+                    Grid.Column="2" 
+                    Grid.Row="1" 
+                    VerticalAlignment="Top" Margin="3,0,0,0" 
+                />
+
+                <TextBox 
+                    Grid.Column="3" 
+                    Grid.Row="0" 
+                    HorizontalAlignment="Stretch"
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="{Binding SelectedCustomer.Name}" 
+                    VerticalAlignment="Top" 
+                    IsEnabled="False"
+                />
+
+                <TextBox 
+                    Grid.Column="3" 
+                    Grid.Row="1" 
+                    HorizontalAlignment="Stretch"
+                    Margin="0,3,0,0" 
+                    TextWrapping="Wrap"  
+                    Text="{Binding SelectedCustomer.Postcode}" 
+                    VerticalAlignment="Top" 
+                    IsEnabled="False"
+                />
+
+                <Button 
+                    Grid.Column="2" 
+                    Grid.Row="3" 
+                    Content="Search" 
+                    Grid.ColumnSpan="2" Margin="0,5,0,0"
+                    Command="{Binding SearchCommand}" />
+
+                <Image 
+                    HorizontalAlignment="Center" 
+                    Grid.Row="0" 
+                    Grid.Column="4"                     
+                    Grid.RowSpan="4"
+                    Margin="0,3,0,0" 
+                    VerticalAlignment="Center"                     
+                    Source="{Binding SelectedCustomer.Logo}"                    
+                />
             </Grid>
         </GroupBox>
-        <GroupBox Header="Dokumente" Margin="10,180,10,28">
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ListView Width="200" HorizontalAlignment="Left" SelectedItem="{Binding SelectedDocument, Mode=TwoWay}" ItemsSource="{Binding DocumentList}">
-                    
-                </ListView>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Name" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="72"/>
-                        <Label Content="Erstellt" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="72" Grid.Row="1"  Grid.Column="0"/>
-                        <Label Content="{Binding SelectedDocument.Name}" Grid.Row="0" Grid.Column="1" Margin="10,9,10,0" VerticalAlignment="Top" Height="31"/>
-                        <Label Content="{Binding SelectedDocument.Created}" Grid.Column="1" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top" Height="26"/>
-                        <Label Content="Nummer" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="72" Grid.Row="2" />
-                        <Label Content="Datum" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="72" Grid.Row="3"  Grid.Column="0"/>
-                        <Label Content="{Binding SelectedDocument.No}" Grid.Row="2" Grid.Column="1" Margin="10,9,10,0" VerticalAlignment="Top" Height="31"/>
-                        <Label Content="{Binding SelectedDocument.Date}" Grid.Row="3" Grid.Column="1" Margin="10,10,10,0" VerticalAlignment="Top" Height="26"/>
 
-                    </Grid>
-                </Grid>
-                <Image Grid.Column="2" Source="{Binding SelectedDocument.Preview}" />
+        <GroupBox Grid.Row="2" Header="Documents">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="58"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="100*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ListView                     
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    SelectedItem="{Binding SelectedDocument, Mode=TwoWay}" 
+                    ItemsSource="{Binding DocumentList}"                     
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="5">
+                </ListView>
+
+                <Label 
+                    Content="Name" 
+                    HorizontalAlignment="Left"                             
+                    VerticalAlignment="Center" 
+                    Grid.Column="1"
+                    Grid.Row="0"
+                />
+
+                <Label 
+                    Content="Created" 
+                    HorizontalAlignment="Left"                             
+                    VerticalAlignment="Center" 
+                    Grid.Row="1"  
+                    Grid.Column="1"
+                />
+
+                <Label 
+                    Content="{Binding SelectedDocument.Name}" 
+                    Grid.Row="0" 
+                    Grid.Column="2"                             
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Stretch"                            
+                />
+
+                <Label 
+                    Content="{Binding SelectedDocument.Created}" 
+                    Grid.Column="2"                             
+                    Grid.Row="1" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Stretch"                            
+                />
+
+                <Label 
+                    Content="Id" 
+                    HorizontalAlignment="Left"                             
+                    VerticalAlignment="Center" 
+                    Grid.Row="2"
+                    Grid.Column="1"
+                />
+
+                <Label 
+                    Content="Date" 
+                    HorizontalAlignment="Left"                             
+                    VerticalAlignment="Center" 
+                    Grid.Row="3"  
+                    Grid.Column="1"
+                />
+
+                <Label 
+                    Content="{Binding SelectedDocument.No}"
+                    Grid.Row="2" 
+                    Grid.Column="2"                             
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Stretch"                            
+                />
+
+                <Label 
+                    Content="{Binding SelectedDocument.Date}" 
+                    Grid.Row="3" 
+                    Grid.Column="2"                             
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Stretch"                            
+                />
+
+                <Image 
+                    Grid.Row="0"
+                    Grid.Column="3" 
+                    Grid.RowSpan="5"
+                    HorizontalAlignment="Stretch"
+                    Source="{Binding SelectedDocument.Preview}" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Header="Upload">
+            <Grid Margin="0,3,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="471*"/>
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="112" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="{Binding UploadFileName, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="2" />
+                <Button Content="Browse" Command="{Binding BrowseCommand}" Grid.Column="2" Margin="3,0,0,0"  />
+                <Button Content="Upload" Command="{Binding UploadCommand}" Grid.Column="3" Margin="3,0,0,0" />
             </Grid>
         </GroupBox>
     </Grid>
