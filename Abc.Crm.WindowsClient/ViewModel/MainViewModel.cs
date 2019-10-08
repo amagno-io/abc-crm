@@ -1,11 +1,11 @@
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using Abc.Crm.WindowsClient.Models;
-using Abc.Crm.WindowsClient.Properties;
-using Abc.Crm.WindowsClient.Services;
 using GalaSoft.MvvmLight;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Abc.Crm.WindowsClient.Services;
+using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Abc.Crm.WindowsClient.ViewModel
 {
@@ -26,7 +26,6 @@ namespace Abc.Crm.WindowsClient.ViewModel
         private Customer _selectedCustomer;
         private CustomerDocument _selectedDocument;
         private ObservableCollection<CustomerDocument> _documentList;
-
         private readonly ICustomerDocumentRepository _documentRepository;
 
         public string Title => $"Kunde - {SelectedCustomer.Name} ({SelectedCustomer.Number})";
@@ -52,21 +51,12 @@ namespace Abc.Crm.WindowsClient.ViewModel
                 Name = "Clean Power AG",
                 Number = "SLKD1003",
                 Postcode = "20457",
-                Logo = ImageToByte2(Resources.cleanpower_logo)
+                Logo = File.ReadAllBytes(@"D:\Alle\Abc.Crm\Abc.Crm.WindowsClient\resources\cleanpower-logo.png")
             };
 
             DocumentList = new ObservableCollection<CustomerDocument>(_documentRepository.GetAll());
 
             SelectedDocument = DocumentList.First();
-        }
-
-        private static byte[] ImageToByte2(Image img)
-        {
-            using (var stream = new MemoryStream())
-            {
-                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
         }
     }
 }
