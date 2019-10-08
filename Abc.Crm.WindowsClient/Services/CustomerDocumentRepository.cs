@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Abc.Crm.WindowsClient.Models;
 using RestSharp;
@@ -10,20 +11,51 @@ namespace Abc.Crm.WindowsClient.Services
 {
     public class CustomerDocumentRepository : ICustomerDocumentRepository
     {
+        #region Consts
+
+        private Guid NoTagDefId = new Guid("ead13e9b-20af-47f0-96b2-89c2704b4467");
+
+        private Guid DateTagDefId = new Guid("57710b3c-4661-4bea-a81a-7e4c485146ad");
+
+        private readonly string _amagnoHost;
+
+        private readonly string _amagnoUser;
+
+        private readonly string _amagnoPass;
+
+        #endregion
+
+
+        public CustomerDocumentRepository()
+        {
+            _amagnoHost = ConfigurationManager.AppSettings.Get("amagno_host") ?? 
+                          throw new InvalidOperationException("Repository is useless without amagno host");
+
+            _amagnoUser = ConfigurationManager.AppSettings.Get("amagno_user") ?? 
+                          throw new InvalidOperationException("Repository is useless without amagno user");
+
+            _amagnoPass = ConfigurationManager.AppSettings.Get("amagno_pass") ?? 
+                          throw new InvalidOperationException("Repository is useless without amagno pass");
+        }
+
         #region REST Helper Methods
 
         private IRestClient GetRestClient()
         {
-            return new RestClient("http://localhost/amagnome/api/v2/");
+            return new RestClient($"http://{_amagnoHost}/amagnome/api/v2/");
         }
 
         private string GetToken()
         {
             var client = GetRestClient();
+
             var request = CreateRequest("token", Method.POST);
-            request.AddParameter("undefined",
-                "{\n\t\"Username\":\"ged@amagno.de\", \n\t\"Password\":\"hannes\"\n}",
+
+            request.AddParameter(
+                "undefined",
+                $"{{\"Username\":\"{_amagnoUser}\",\"Password\":\"{_amagnoPass}\"}}",
                 ParameterType.RequestBody);
+
             var response = client.Execute(request);
 
             return response.Content.Trim('"');
@@ -32,9 +64,11 @@ namespace Abc.Crm.WindowsClient.Services
         private RestRequest CreateRequest(string resourcePath, Method method)
         {
             var request = new RestRequest(resourcePath, method);
+
             request.AddHeader("Cache-Control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
             request.RequestFormat = DataFormat.Json;
+
             return request;
         }
 
@@ -52,17 +86,7 @@ namespace Abc.Crm.WindowsClient.Services
         }
 
         #endregion
-
-        #region Consts
-
-        private const string VaultId = "e2bebb8e-9adf-4fda-8897-72a095a942f0";
-
-        private Guid NoTagDefId = new System.Guid("ead13e9b-20af-47f0-96b2-89c2704b4467");
-
-        private Guid DateTagDefId = new System.Guid("57710b3c-4661-4bea-a81a-7e4c485146ad");
-
-        #endregion
-
+        
         #region Implementation of ICustomerDocumentRepository
 
         public IEnumerable<CustomerDocument> GetAll()
