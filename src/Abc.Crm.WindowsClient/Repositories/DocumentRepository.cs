@@ -54,7 +54,7 @@ namespace Abc.Crm.WindowsClient.Repositories
                   }}
                 }}";
 
-            request.AddBody(body);
+            request.AddJsonBody(body);
 
             var response = client.Execute<dynamic>(request);
 
@@ -188,7 +188,7 @@ namespace Abc.Crm.WindowsClient.Repositories
                     }}
                 }}";
 
-            request.AddBody(body);
+            request.AddJsonBody(body);
 
             Debug.WriteLine(body);
 
