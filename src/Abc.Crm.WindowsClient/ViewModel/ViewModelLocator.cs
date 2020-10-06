@@ -17,18 +17,14 @@ using Abc.Crm.WindowsClient.Interfaces;
 using Abc.Crm.WindowsClient.Models;
 using Abc.Crm.WindowsClient.Repositories;
 using Abc.Crm.WindowsClient.Services;
-using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace Abc.Crm.WindowsClient.ViewModel
 {
     public class ViewModelLocator
     {
-
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            
             SimpleIoc.Default.Register<IAuthToken>(() => new AuthToken());
             SimpleIoc.Default.Register<IAuthenticator, Authenticator>();
             SimpleIoc.Default.Register<IRestClientFactory, RestClientFactory>();
@@ -38,6 +34,12 @@ namespace Abc.Crm.WindowsClient.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel Main
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
+            }
+        }
     }
 }
