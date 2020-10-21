@@ -18,12 +18,10 @@ namespace Abc.Crm.WindowsClient.Factories
 
         private const int Timeout = 5000;
 
-        private const string RelativePath = "AmagnoMe/api/v2/";
-
         public RestClientFactory([NotNull] IAuthToken token)
         {
-            _baseUri = new Uri(ConfigurationManager.AppSettings["amagno_host"] ?? throw new NotSupportedException("Cannot use rest client without url"));
-            _token = token;
+            _baseUri = new Uri(ConfigurationManager.AppSettings["amagno_host"] ?? throw new ArgumentException("Cannot use rest client without url"));
+            _token = token ?? throw new ArgumentException("Cannot use rest client without a valid token");
         }
 
         public IRestClient Create()
@@ -45,7 +43,7 @@ namespace Abc.Crm.WindowsClient.Factories
 
         public IRestRequest CreateClientRequest(string resourcePath, Method method)
         {
-            var request = new RestRequest(_baseUri + RelativePath + resourcePath, method);
+            var request = new RestRequest(new Uri(_baseUri, resourcePath), method);
 
             request.AddHeader("Cache-Control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
@@ -56,7 +54,7 @@ namespace Abc.Crm.WindowsClient.Factories
 
         public IRestRequest CreateClientRequest(string resourcePath, Method method, string contentType)
         {
-            var request = new RestRequest(_baseUri + RelativePath + resourcePath, method);
+            var request = new RestRequest(new Uri(_baseUri, resourcePath), method);
 
             request.AddHeader("Cache-Control", "no-cache");
             request.AddHeader("Content-Type", contentType);
